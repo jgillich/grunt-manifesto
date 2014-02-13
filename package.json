@@ -1,0 +1,16 @@
+{
+  "name": "grunt-manifesto",
+  "version": "0.1.0",
+  "description": "HTML5 cache manifest generator",
+  "homepage": "https://github.com/jgillich/grunt-manifesto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgillich/grunt-manifesto.git"
+  },
+  "main": "tasks/grunt-manifesto.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jakob Gillich <jakob@gillich.me>",
+  "license": "ISC"
+}
