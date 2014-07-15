@@ -1,41 +1,39 @@
 module.exports = function (grunt) {
     grunt.registerMultiTask('manifesto', 'Generate HTML5 cache manifest.', function () {
+        var options = this.options();
 
         this.files.forEach(function (file) {
 
             var contents = [],
-                options = this.options({
-                    cwd: ''
-                }),
                 hash = options.hash && require('crypto').createHash('md5');
 
             contents.push('', 'CACHE:');
             grunt.file.expand({
-                cwd: options.cwd,
+                cwd: file.cwd,
                 filter: 'isFile'
-            }, file.orig.src).forEach(function (file) {
-                contents.push(encodeURI(file));
+            }, file.orig.src).forEach(function (f) {
+                contents.push(encodeURI(f));
 
-                if (hash && grunt.file.isFile(file)) {
-                    hash.update(grunt.file.read(file), 'binary');
+                if (hash && grunt.file.isFile(f)) {
+                    hash.update(grunt.file.read(f), 'binary');
                 }
             });
 
-            if(options.network) {
+            if (options.network) {
                 contents.push('', 'NETWORK:');
-                options.network.forEach(function (file) {
-                    contents.push(encodeURI(file));
+                options.network.forEach(function (f) {
+                    contents.push(encodeURI(f));
                 });
             }
 
-            if(options.fallback) {
+            if (options.fallback) {
                 contents.push('', 'FALLBACK:');
-                options.fallback.forEach(function (file) {
-                    contents.push(encodeURI(file));
+                options.fallback.forEach(function (f) {
+                    contents.push(encodeURI(f));
                 });
             }
 
-            if(hash) {
+            if (hash) {
                 contents.unshift('# ' + hash.digest('hex'));
             }
 
@@ -48,7 +46,7 @@ module.exports = function (grunt) {
             grunt.file.write(file.dest, contents.join('\n'));
             grunt.log.writeln('Manifest file created: ' + file.dest);
 
-        }.bind(this));
+        });
 
     });
 };
