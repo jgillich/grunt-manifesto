@@ -41,3 +41,5 @@ grunt.initConfig({
     }
 });
 ```
+
+Note: Files can have a `cwd` property that is expanded manually by this task, but do **not** set `expand` or the source path will be appended to `dest`.
